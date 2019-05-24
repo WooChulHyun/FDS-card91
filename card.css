@@ -113,3 +113,10 @@ body {
 .card-back {
     transform: rotateY(180deg);
 }
+
+#canvas{
+	background-color: #000000;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
