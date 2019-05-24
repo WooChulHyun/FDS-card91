@@ -16,6 +16,8 @@ let startingTime = new Date();
 let endingTime;
 let totalTime;
 
+document.querySelector('#fireworkDiv').style.visibility = 'hidden';
+
 function shuffle() {
   for (let i = 0; cardBackImgBackUp.length > 0; i++) {
     randomCardBackImg = randomCardBackImg.concat(
@@ -63,7 +65,9 @@ function scoreboard(totalTime) {
   const time = document.createElement('div');
   time.classList.add('time');
   document.querySelector('.score').appendChild(time);
-  document.querySelector('.time').innerHTML += `${totalTime}<br>`;
+  document.querySelector(
+    '.time'
+  ).innerHTML += `<p class="timeScore">${totalTime} Second</p>`;
 }
 
 function game(card) {
@@ -100,6 +104,8 @@ function game(card) {
                   'url(\'pokemon/pokemon4.png\')'
                 ];
                 cardBackImgBackUp = cardBackImg.slice();
+                shuffle();
+                cardSetting(width, height);
               } else if (width * height === 8) {
                 width = 3;
                 height = 4;
@@ -118,27 +124,37 @@ function game(card) {
                   'url(\'pokemon/pokemon6.png\')'
                 ];
                 cardBackImgBackUp = cardBackImg.slice();
+                shuffle();
+                cardSetting(width, height);
               } else if (width * height === 12) {
                 endingTime = new Date();
                 totalTime = (endingTime - startingTime) / 1000;
-                alert(
-                  `성공 ${totalTime} 초`
-                );
                 scoreboard(totalTime);
-                startingTime = null;
-                startingTime = new Date();
-                width = 2;
-                height = 2;
-                cardBackImg = [
-                  'url(\'pokemon/pokemon1.png\')',
-                  'url(\'pokemon/pokemon1.png\')',
-                  'url(\'pokemon/pokemon2.png\')',
-                  'url(\'pokemon/pokemon2.png\')'
-                ];
-                cardBackImgBackUp = cardBackImg.slice();
+                document.querySelector(
+                  '#fireworkDiv'
+                ).style.visibility = 'visible';
+                setTimeout(() => {
+                  document.querySelector(
+                    '#fireworkDiv'
+                  ).style.visibility = 'hidden';
+                  document.querySelector(
+                    '#wrapper'
+                  ).innerHTML = '';
+                  startingTime = null;
+                  startingTime = new Date();
+                  width = 2;
+                  height = 2;
+                  cardBackImg = [
+                    'url(\'pokemon/pokemon1.png\')',
+                    'url(\'pokemon/pokemon1.png\')',
+                    'url(\'pokemon/pokemon2.png\')',
+                    'url(\'pokemon/pokemon2.png\')'
+                  ];
+                  cardBackImgBackUp = cardBackImg.slice();
+                  shuffle();
+                  cardSetting(width, height);
+                }, 5000);
               }
-              shuffle();
-              cardSetting(width, height);
             }, 800);
           }
         } else {
