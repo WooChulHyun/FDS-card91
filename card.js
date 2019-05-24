@@ -14,6 +14,7 @@ let clicked = [];
 let completedCard = [];
 let startingTime = new Date();
 let endingTime;
+let totalTime;
 
 function shuffle() {
   for (let i = 0; cardBackImgBackUp.length > 0; i++) {
@@ -56,6 +57,13 @@ function cardSetting(width, height) {
     });
     clickFlag = true;
   }, 5000);
+}
+
+function scoreboard(totalTime) {
+  const time = document.createElement('div');
+  time.classList.add('time');
+  document.querySelector('.score').appendChild(time);
+  document.querySelector('.time').innerHTML += `${totalTime}<br>`;
 }
 
 function game(card) {
@@ -112,10 +120,11 @@ function game(card) {
                 cardBackImgBackUp = cardBackImg.slice();
               } else if (width * height === 12) {
                 endingTime = new Date();
+                totalTime = (endingTime - startingTime) / 1000;
                 alert(
-                  `성공 ${(endingTime - startingTime)
-                                        / 1000} 초`
+                  `성공 ${totalTime} 초`
                 );
+                scoreboard(totalTime);
                 startingTime = null;
                 startingTime = new Date();
                 width = 2;
